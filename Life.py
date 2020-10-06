@@ -1,7 +1,7 @@
 class Life:
     import random
     a=random.randint(27000, 32400)
-    def __init__(self, name, satiety=250, happiness=250, health=250, money=10000000, total_days=7560, days_for_death=a, education_list=[], apartments=''):
+    def __init__(self, name, satiety=250, happiness=250, health=250, money=9999999999999999999999999999999999999999999999, total_days=7560, days_for_death=a, education_list=[], apartmemts='', days_in_game=0):
         self.name=name
         self.satiety=satiety
         self.happiness=happiness
@@ -10,46 +10,49 @@ class Life:
         self.total_days=total_days
         self.days_for_death=days_for_death
         self.education_list=education_list
-        self.apartments=apartments
+        self.days_in_game=days_in_game
+        self.apartments=apartmemts
 
     def pass_day(self):
         self.satiety-=12.5
         self.happiness-=12.5
         self.health-=12.5
-        #self.money+=self.sallary
+        self.days_in_game+=1
         self.total_days+=1
 
         if self.satiety<1:
-             raise SystemExit ('Вы умерли от голода, вы прожили всего', self.total_days, 'дней')
+             raise SystemExit ('Вы умерли от голода, вы прожили всего', self.days_in_game, 'дней')
         elif self.health<1:
-             raise SystemExit ('Вы умерли от болезни, вы прожили всего', self.total_days, 'дней')
+             raise SystemExit ('Вы умерли от болезни, вы прожили всего', self.days_in_game, 'дней')
         elif self.happiness<1:
-             raise SystemExit ('Вы умерли от депресии, вы прожили всего', self.total_days, 'дней')
+             raise SystemExit ('Вы умерли от депресии, вы прожили всего', self.days_in_game, 'дней')
         elif self.total_days>self.days_for_death:
              raise SystemExit ('Вы умерли от старости, прожив долгую жизнь')
         if self.total_days%360==0:
              print('У вас сегодня день рождения! В подарок вы получаете 10000 грн')
              self.money+=10000
         if self.apartments=='Общежитие':
-             if self.total_days%30==0:
+             if self.days_in_game%30==0:
                  self.money-=1000
                  print('Снята плата по общежитию')
         elif self.apartments=='Парковочное место':
-            if self.total_days%30==0:
+            if self.days_in_game%30==0:
                  self.money-=700
                  print('Снята плата по Парковочному месту')
 
         elif self.apartments=='Съёмная комната':
-            if self.total_days%30==0:
+            if self.days_in_game%30==0:
                  self.money-=1500
                  print('Снята оплата за съемную комнату')
 
         elif self.apartments=='Съёмная квартира':
-            if self.total_days%30==0:
+            if self.days_in_game%30==0:
                  self.money-=5000
                  print('Снята оплата за сьёмную квартиру')
         if self.money<0:
-             self.money=0       
+             self.money=0 
+        if self.days_in_game%30==0:
+            self.money+=self.sallary      
 
 
 
@@ -784,11 +787,12 @@ class Life:
          Выберите, какую машину вы хотите взять
          0 - В меню
          1 - Старая машина со свалки (2000)
-         2 - Дедушкина машина (3500)
-         3 - Очень дешевая легковушка (5000)
-         4 - Более новая машина (15000)
-         5 - Хорошая машина (45 000)
-         6 - Дорогая марка (100 000)
+         2 - Дедушкина машина (5000)
+         3 - Очень дешевая легковушка (25 000)
+         4 - Более новая машина (50 000)
+         5 - Хорошая машина (150 000)
+         6 - Дорогая марка (500 000)
+         7 - Грёбанный вертолёт (4 000 000)
          """)
          choice=int(input())
 
@@ -829,9 +833,9 @@ class Life:
                  choice1=int(input())
                  if choice1==1:
                      if 'Права' in self.education_list:
-                         if self.money>3500:
+                         if self.money>5000:
                              self.car='Дедушкина машина'
-                             self.money-=3500
+                             self.money-=5000
                              print('Теперь', self.car, "ваша машина")
                              self.pass_day()
                              break
@@ -856,9 +860,9 @@ class Life:
                  """)
                  choice1=int(input())
                  if choice1==1:
-                    if self.money>5000:
+                    if self.money>25000:
                         self.car='Очень дешевая легковушка'
-                        self.money-=5000
+                        self.money-=25000
                         print('Теперь', self.car, "ваша машина")
                         self.pass_day()
                         break
@@ -878,9 +882,9 @@ class Life:
                  choice1=int(input())
                  if choice1==1:
                      if 'Права' in self.education_list:
-                         if self.money>15000:
+                         if self.money>50000:
                              self.car='Более новая машина'
-                             self.money-=15000
+                             self.money-=50000
                              print('Теперь', self.car, "ваша машина")
                              self.pass_day()
                              break
@@ -903,9 +907,9 @@ class Life:
                  choice1=int(input())
                  if choice1==1:
                      if 'Права' in self.education_list:
-                         if self.money>45000:
+                         if self.money>15000:
                              self.car='Хорошая машина'
-                             self.money-=45000
+                             self.money-=15000
                              print('Теперь', self.car, "ваша машина")
                              self.pass_day()
                              break
@@ -928,10 +932,35 @@ class Life:
                  choice1=int(input())
                  if choice1==1:
                      if 'Права' in self.education_list:
-                         if self.money>100000:
+                         if self.money>500000:
                              self.car='Дорогая марка'
-                             self.money-=100000
+                             self.money-=500000
                              print('Теперь', self.car, "ваша машина")
+                             self.pass_day()
+                             break
+                         else:
+                             print('У вас недостаточно денег')
+                             break
+                     else:
+                         print('Для начала получите права')
+                         break
+                 else:
+                     break
+
+            elif choice==7:
+                 print \
+                 ("""
+                 Вы уверены?
+                 1 - Да
+                 2 - Нет 
+                 """)
+                 choice1=int(input())
+                 if choice1==1:
+                     if 'Права' in self.education_list:
+                         if self.money>4000000:
+                             self.car='Грёбанный вертолёт'
+                             self.money-=4000000
+                             print('Теперь у вас есть грёбанный вертолет')
                              self.pass_day()
                              break
                          else:
@@ -944,7 +973,7 @@ class Life:
                      break
              else:
                  print('Выберите пункт из меню')
-                 
+                              
     def satiety_status(self):
         if self.satiety>400:
             s='Я сыт до отвала'
@@ -990,6 +1019,7 @@ class Life:
          5 - Закончить экономический (35 000)
          6 - Закончить юридический (50 000)
          7 - Получить права (1500)
+         8 - Получить права на вертолёт (50 000)
          ''')
          choice=int(input())
          while choice!=0:
@@ -1089,8 +1119,8 @@ class Life:
                  if self.money>1500:
                      self.total_days+=30
                      self.money-=30
-                     self.education_list.append('Права')
-                     print('Вы получили права')
+                     self.education_list.append('Права на грёбанный вертолёт')
+                     print('Вы получили права на грёбанный вертолёт')
                      break
                  else:
                      print('У вас недостаточно денег')
@@ -1099,13 +1129,197 @@ class Life:
                  print('В меню нет пункта')
                  break
             
+    def job(self):
+        print \
+        ('''
+        Выберите работу на которую вы хотите устроится:
+        
+        0 - Выход
+        1 - Промоутер (3000)
+        2 - Дворник (5000)
+        3 - Продавец (7000)
+        4 - Таксист (10 000)
+        5 - Каменщик (13 000)
+        6 - Сварщик (15 000)
+        7 - Медбрат (20 000)
+        8 - Врач (25 000)
+        9 - Бухгалтер (35 000)
+        10 - Директор банка (100 000)
+        11 - Министр финансов (150 000)
+        12 - Президент (500 000)
+        ''')
+        choice=int(input())
+        while choice!=0:
+            if choice==1:
+                self.job_days=0
+                self.sallary=3000
+                print('Вы стали Промоутером')
+                break
+            elif choice==2:
+                if 'Среднее образование' in self.education_list:
+                    if self.apartment!='':
+                        if self.clothes!='':
+                            self.job_days=0
+                            self.sallary=5000
+                            print('Вы стали Дворником, поздравляю')
+                            break
+                        else:
+                            print('Для начала вам нужна одежда поновее')
+                    else:
+                        print('Для начала вам нужно жилье получше')
+                else:
+                    print('Вот говорили тебе, что без образования тебя даже дворником работать не возьмут, вот и я не возьму, иди учись')
+                    break
+            elif choice==3:
+                if self.job_days>90:
+                    if 'Среднее образование' in self.education_list:
+                        self.job_days=0
+                        self.sallary=7000
+                        break
+                    else:
+                        print('Отучитесь в школе')
+                        break
+                else:
+                    print('Вам нужен опыт работы')
+            elif choice==4:
+                if self.car!='':
+                    if self.apartments!='' and self.apartments!='Палатка':
+                        if self.clothes!='Порванные футболка и штаны' and self.clothes!='':
+                            self.sallary=10000
+                            print('Вы стали таксистом')
+                            break
+                        else:
+                            print('Вам нужна одежда поновее')
+                    else:
+                        print('Вам нужно жильё поновее')
+                else:
+                    print('Для начала купите машину')
+                    break
+            elif choice==5:
+                if 'Техникум' in self.education_list:
+                    if self.car!='' and self.car!='Старая машина со свалки':
+                        if self.clothes!='Порванные одежда и штаны' and self.clothes!='', and self.clothes!='Дешёвый секонд-хэнд':
+                            if self.apartments!='' and self.apartments!='Палатка':
+                                self.job_days=0
+                                self.sallary=13000
+                                break
+                            else:
+                                print('Вам нужно жильё поновее')
+                                break
+                        else:
+                            print('Вам нужна одежда поновее')
+                            break
+                    else:
+                        print('Вам нужна машина поновее')
+                        break
+                else:
+                    print('Для начала пройдите обучение')
+                    break
+            elif choice==6:
+                if 'Техникум' in self.education_list:
+                    if self.job_days>90:
+                        self.sallary=15000
+                        break
+                    else:
+                        print('Вам нужен опыт работы')
+                        break
+                else:
+                    print('Для начала отучитесь')
+                    break
+            elif choice==7:
+                if 'Медицинский' in self.education_list:
+                    self.job_days=0
+                    self.sallary=20000
+                    break
+                else:
+                    print('Для начала отучитесь')  
+                    break
+            elif choice==8:
+                if 'Медицинский' in self.education_list:
+                    if self.job_days>90:
+                        self.sallary=25000
+                        break
+                    else:
+                        print('Вам нужен опыт работы')
+                        break                                                                                         
+                else:
+                     print('Для начала обучитесь')
+                     break
+            elif choice==9:
+                if 'Экономический' in self.education_list:
+                    self.job_days=0
+                    self.sallary=35000
+                    break
+                else:
+                    print('Для начала отучитесь')
+                    break
+            elif choice==10:
+                if 'Экономический' in self.education_list:
+                    if self.job_days>90:
+                        self.sallary=100000
+                        break
+                    else:
+                        print('Вам нужен опыт работы')
+                        break
+                else:
+                    print('Вам нужно обучится')
+                    break
+            elif choice==11:
+                if 'Юридический' and 'Экономический' in self.education_list:
+                    if self.car=='Дорогая марка':
+                        if self.apartments=='Огромный особняк за городом':
+                            self.job_days=0
+                            self.sallary=150000
+                            print('Вы стали министром финансов')
+                            break
+                        else:
+                            print('Вам нужно жильё поновее')
+                            break
+                    else:
+                        print('Вам нужна машина поновее')
+                        break
+                else:
+                    print('Закончите надлежащее образование')
 
+                    
+                    
+            elif choice==12:
+                if 'Юридический' in self.education_list:
+                    if self.clothes=='Дорогой смокинг':
+                        if self.car=='Грёбанный вертолёт':
+                            if self.apartments=='Пентхаус':
+                                if self.job_days>1800:
+                                    if self.money>1000000:
+                                        self.money-=1000000
+                                        d=random.randint(1,4)
+                                        if d==1:
+                                            print('Вы стали президентом')
+                                            self.sallary=500000
+                                            break
+                                        else:
+                                            print('Вы проиграли выборы')
+                                            break
+                                    else:
+                                        print('Для начала соберите 1 000 000 для того что бы баллотироваться в приезиденты')
+                                        break
+                                else:
+                                    print('Вам нужен опыт работы')
+                                    break
+                            else:
+                                print('Вам нужно жильё поновее')
+                                break
+                        else:
+                            print('Вам нужен вертолет))')
+                            break
+                    else:
+                        print('Без нормальной одежды в президенты пойти не получится')
+                        break
+                else:
+                    print('Вам нужно надлежащее образование')
+                    break
+            else:
+                print('Выберите пункт из меню')
 
-
-      
-
-
-                 
 def main():
      name=input('Введите имя персонажа, за которого вы будете играть: ')
      character=Life(name)
@@ -1114,7 +1328,6 @@ def main():
          character.status()
          print \
          (""" 
-
          Выберите пункт в меню
          0 - Выйти из игры
          1 - Поесть что нибудь
@@ -1160,6 +1373,8 @@ def main():
          elif choice==9:
              for i in range(7):
                  character.pass_day()
+         elif choice==10:
+             character.job()
 
          else:
             print('В меню нет пункта,', choice)
