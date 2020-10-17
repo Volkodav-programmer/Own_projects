@@ -1,7 +1,7 @@
 class Life:
     import random
     a=random.randint(27000, 32400)
-    def __init__(self, name, satiety=250, happiness=250, health=250, money=9999999999999999999999999999999999999999999999, total_days=7560, days_for_death=a, education_list=[], apartmemts='', days_in_game=0):
+    def __init__(self, name, satiety=250, happiness=250, health=250, money=1000, total_days=7560, days_for_death=a, education_list=[], apartmemts='', days_in_game=0):
         self.name=name
         self.satiety=satiety
         self.happiness=happiness
@@ -52,7 +52,8 @@ class Life:
         if self.money<0:
              self.money=0 
         if self.days_in_game%30==0:
-            self.money+=self.sallary      
+            self.money+=self.sallary   
+            print('Вы получили зп')   
 
 
 
@@ -414,6 +415,39 @@ class Life:
                 print('Нет пункта в меню: ', choice)
                 break
     
+    def satiety_status(self):
+        if self.satiety>400:
+            s='Я сыт до отвала'
+        elif 250<self.satiety<400:
+            s='Я не голоден'  
+        elif 100<self.satiety<250:
+            s='Я голоден'
+        elif self.satiety<100:
+            s='Я при голодной смерти'
+        return s
+
+    def health_status(self):
+        if self.health>400:
+            h='Я здоров как бык'
+        elif 250<self.health<400:
+            h='Я здоров'  
+        elif 100<self.health<250:
+            h='Я чувствую себя не очень хорошо'
+        elif self.health<100:
+            h='Я присмерти от болезни'
+        return h  
+
+    def happiness_status(self):
+        if self.happiness>400:
+            ha='Я считаю, что жизнь прекрасна'
+        elif 250<self.happiness<400:
+            ha='Я чувтсвую себя счастливым'  
+        elif 100<self.happiness<250:
+            ha='Я чувствую себя грустным'
+        elif self.happiness<100:
+            ha='Я готов покончить жизнь самоубийством'
+        return ha              
+
     def status(self):
         print('Мое имя -', self.name, 'и я сыт на', self.satiety, 'единиц, и счастлив на', self.happiness, 'единиц, и мое здоровье соствляет', self.health, 'eдиниц, у меня в наличии', self.money, 'гривен. '
         'Лет осталось до смерти: ', self.days_for_death//360)
@@ -598,7 +632,6 @@ class Life:
                  for i in range(count):
                      self.health+=30*count
                      self.happiness-=5*count
-                     self.money-=50*count
                      if self.happiness>500:
                             self.happiness=500
                      if self.health>500:
@@ -947,7 +980,7 @@ class Life:
                  else:
                      break
 
-            elif choice==7:
+             elif choice==7:
                  print \
                  ("""
                  Вы уверены?
@@ -974,39 +1007,6 @@ class Life:
              else:
                  print('Выберите пункт из меню')
                               
-    def satiety_status(self):
-        if self.satiety>400:
-            s='Я сыт до отвала'
-        elif 250<self.satiety<400:
-            s='Я не голоден'  
-        elif 100<self.satiety<250:
-            s='Я голоден'
-        elif self.satiety<100:
-            s='Я при голодной смерти'
-        return s
-
-    def health_status(self):
-        if self.health>400:
-            h='Я здоров как бык'
-        elif 250<self.health<400:
-            h='Я здоров'  
-        elif 100<self.health<250:
-            h='Я чувствую себя не очень хорошо'
-        elif self.health<100:
-            h='Я присмерти от болезни'
-        return h   
-
-    def happiness_status(self):
-        if self.happiness>400:
-            ha='Я считаю, что жизнь прекрасна'
-        elif 250<self.happiness<400:
-            ha='Я чувтсвую себя счастливым'  
-        elif 100<self.happiness<250:
-            ha='Я чувствую себя грустным'
-        elif self.happiness<100:
-            ha='Я готов покончить жизнь самоубийством'
-        return ha              
-
     def education(self):
          print \
          ('''
@@ -1198,8 +1198,8 @@ class Life:
             elif choice==5:
                 if 'Техникум' in self.education_list:
                     if self.car!='' and self.car!='Старая машина со свалки':
-                        if self.clothes!='Порванные одежда и штаны' and self.clothes!='', and self.clothes!='Дешёвый секонд-хэнд':
-                            if self.apartments!='' and self.apartments!='Палатка':
+                        if self.clothes!='Порванные одежда и штаны' and self.clothes!='' and self.clothes!='Дешёвый секонд-хэнд':
+                            if self.apartments!='' and self.apartments!='Палатка' and self.apartments!='Общежитие':
                                 self.job_days=0
                                 self.sallary=13000
                                 break
@@ -1219,6 +1219,7 @@ class Life:
                 if 'Техникум' in self.education_list:
                     if self.job_days>90:
                         self.sallary=15000
+                        self.job_days=0
                         break
                     else:
                         print('Вам нужен опыт работы')
@@ -1228,9 +1229,21 @@ class Life:
                     break
             elif choice==7:
                 if 'Медицинский' in self.education_list:
-                    self.job_days=0
-                    self.sallary=20000
-                    break
+                    if self.car!='' and self.car!='Старая машина со свалки' and self.car!='Очень дешевая легковушка':
+                        if self.clothes!='Порванные одежда и штаны' and self.clothes!='' and self.clothes!='Дешёвый секонд-хэнд':
+                            if self.apartments!='' and self.apartments!='Палатка' and self.apartments!='Парковочное место' and self.apartments!='Сьёмная комната':
+                                self.job_days=0
+                                self.sallary=20000
+                                break
+                            else:
+                                print('Вам нужно новое место жительства')
+                                break
+                        else:
+                            print('Вам нужна одежда поновее')
+                            break
+                    else:
+                        print('Вам нужна машина поновее')
+                        break
                 else:
                     print('Для начала отучитесь')  
                     break
@@ -1238,6 +1251,7 @@ class Life:
                 if 'Медицинский' in self.education_list:
                     if self.job_days>90:
                         self.sallary=25000
+                        self.job_days=0
                         break
                     else:
                         print('Вам нужен опыт работы')
@@ -1247,9 +1261,21 @@ class Life:
                      break
             elif choice==9:
                 if 'Экономический' in self.education_list:
-                    self.job_days=0
-                    self.sallary=35000
-                    break
+                    if self.car!='' and self.car!='Старая машина со свалки' and self.car!='Очень дешевая легковушка' and self.car!='Более новая машина':
+                        if self.clothes!='Порванные одежда и штаны' and self.clothes!='' and self.clothes!='Дешёвый секонд-хэнд' and self.clothes!='Свитер и штаны':
+                            if self.apartments!='' and self.apartments!='Палатка' and self.apartments!='Парковочное место' and self.apartments!='Сьёмная комната' and self.apartments!='Квартира':
+                                self.job_days=0
+                                self.sallary=35000
+                                break
+                            else:
+                                print('Вам нужна квартира поновее')
+                                break
+                        else:
+                            print('Вам нужна одежда поновее')
+                            break
+                    else:
+                        print('Вам нужна машина поновее')
+                        break
                 else:
                     print('Для начала отучитесь')
                     break
@@ -1257,6 +1283,7 @@ class Life:
                 if 'Экономический' in self.education_list:
                     if self.job_days>90:
                         self.sallary=100000
+                        self.job_days=0
                         break
                     else:
                         print('Вам нужен опыт работы')
@@ -1280,6 +1307,7 @@ class Life:
                         break
                 else:
                     print('Закончите надлежащее образование')
+                    break
 
                     
                     
@@ -1339,6 +1367,7 @@ def main():
          7 - Пойти учиться
          8 - Пропустить день
          9 - Пропустить неделю
+         10 - Найти новую работу
          """)
          choice=int(input())
          
