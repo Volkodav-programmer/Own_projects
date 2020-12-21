@@ -1,7 +1,7 @@
 class Life:
     import random
     a=random.randint(27000, 32400)
-    def __init__(self, name, satiety=250, happiness=250, health=250, money=1000, total_days=7560, days_for_death=a, education_list=[], apartmemts='', days_in_game=0):
+    def __init__(self, name, satiety=250, happiness=250, health=250, money=1000, total_days=7560, days_for_death=a, education_list=[], apartmemts='', days_in_game=0, sallary=0):
         self.name=name
         self.satiety=satiety
         self.happiness=happiness
@@ -12,6 +12,7 @@ class Life:
         self.education_list=education_list
         self.days_in_game=days_in_game
         self.apartments=apartmemts
+        self.sallary=sallary
 
     def pass_day(self):
         self.satiety-=12.5
@@ -28,9 +29,11 @@ class Life:
              raise SystemExit ('Вы умерли от депресии, вы прожили всего', self.days_in_game, 'дней')
         elif self.total_days>self.days_for_death:
              raise SystemExit ('Вы умерли от старости, прожив долгую жизнь')
+
         if self.total_days%360==0:
              print('У вас сегодня день рождения! В подарок вы получаете 10000 грн')
              self.money+=10000
+
         if self.apartments=='Общежитие':
              if self.days_in_game%30==0:
                  self.money-=1000
@@ -89,7 +92,7 @@ class Life:
                 """)
                 choice1=int(input())
                 if choice1==1:
-                    if self.money>500:
+                    if self.money>=500:
                         self.apartments='Палатка'
                         self.money-=500
                         print('Теперь', self.apartments, "является вашим местом жительства")
@@ -110,7 +113,7 @@ class Life:
                 """)
                 choice1=int(input())
                 if choice1==1:
-                     if self.money>1000:
+                     if self.money>=1000:
                          self.apartments='Общежитие'
                          print('Теперь', self.apartments, "является вашим местом жительства")
                          self.money-=1000
@@ -133,7 +136,7 @@ class Life:
                  choice1=int(input())
                  if choice1==1:
                      if self.car!='':
-                         if self.money>700:
+                         if self.money>=700:
                              self.apartments='Парковочное место'
                              print('Теперь', self.apartments, "является вашим местом жительства")
                              self.money-=700
@@ -157,7 +160,7 @@ class Life:
                 """)
                 choice1=int(input())
                 if choice1==1:
-                    if self.money>1500:
+                    if self.money>=1500:
                         self.apartments='Съёмная комната'
                         print('Теперь', self.apartments, "является вашим местом жительства")
                         self.money-=1500
@@ -179,7 +182,7 @@ class Life:
                 """)
                 choice1=int(input())
                 if choice1==1:
-                    if self.money>2000:
+                    if self.money>=2000:
                         self.apartments='Съёмная квартира'
                         print('Теперь', self.apartments, "является вашим местом жительства")
                         self.money-=2000
@@ -201,7 +204,7 @@ class Life:
                 """)
                 choice1=int(input())
                 if choice1==1:
-                    if self.money>35000:
+                    if self.money>=35000:
                         self.apartments='Квартира'
                         print('Теперь', self.apartments, "является вашим местом жительства")
                         self.money-=35000
@@ -222,7 +225,7 @@ class Life:
                 """)
                 choice1=int(input())
                 if choice1==1:
-                    if self.money>85000:
+                    if self.money>=85000:
                         self.apartments="Дом за городом"
                         print('Теперь', self.apartments, "является вашим местом жительства")
                         self.money-=85000
@@ -243,7 +246,7 @@ class Life:
                 """)
                 choice1=int(input())
                 if choice1==1:
-                    if self.money>150000:
+                    if self.money>=150000:
                         self.apartments='Особняк'
                         print('Теперь', self.apartments, "является вашим местом жительства")
                         self.money-=150000
@@ -264,7 +267,7 @@ class Life:
                 """)
                 choice1=int(input())
                 if choice1==1:
-                    if self.money>1000000:
+                    if self.money>=1000000:
                         self.apartments='Пентхаус'
                         print('Теперь', self.apartments, "является вашим местом жительства")
                         self.money-=1000000
@@ -311,23 +314,23 @@ class Life:
                         self.health=500
                     if self.satiety>500:
                         self.satiety=500
-                self.pass_day()
+                    self.pass_day()
                 break
 
             elif choice==2:
                 count=int(input('Сколько приёмов пищи вы хотите совершить?: '))
-                if self.money>75*count:
+                if self.money>=75*count:
                     for i in range(count):
                         self.satiety+=20*count
                         self.health-=10*count
-                        self.money-=75*count
+                        self.money-=75*count 
                         if self.happiness>500:
                             self.happiness=500
                         if self.health>500:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -335,7 +338,7 @@ class Life:
 
             elif choice==3:
                 count=int(input('Сколько приёмов пищи вы хотите совершить?: '))
-                if self.money>140*count:
+                if self.money>=140*count:
                     for i in range(count):
                         self.satiety+=45*count
                         self.health-=10*count
@@ -346,7 +349,7 @@ class Life:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -355,7 +358,7 @@ class Life:
 
             elif choice==4:
                 count=int(input('Сколько приёмов пищи вы хотите совершить?: '))
-                if self.money>200*count:
+                if self.money>=200*count:
                     for i in range(count):
                         self.satiety+=65*count
                         self.money-=200*count
@@ -365,7 +368,7 @@ class Life:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -373,7 +376,7 @@ class Life:
 
             elif choice==5:
                 count=int(input('Сколько приёмов пищи вы хотите совершить?: '))
-                if self.money>1000*count:
+                if self.money>=1000*count:
                     for i in range(count):
                         self.satiety+=45*count
                         self.health+=5*count
@@ -385,7 +388,7 @@ class Life:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -393,7 +396,7 @@ class Life:
         
             elif choice==6:
                 count=int(input('Сколько приёмов пищи вы хотите совершить?: '))
-                if self.money>1700*count:
+                if self.money>=1700*count:
                     for i in range(count):
                         self.satiety+=200*count
                         self.health+=30*count
@@ -405,7 +408,7 @@ class Life:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -415,43 +418,48 @@ class Life:
                 print('Нет пункта в меню: ', choice)
                 break
     
+    @property
     def satiety_status(self):
-        if self.satiety>400:
+        sat=self.satiety
+        if sat>=400:
             s='Я сыт до отвала'
-        elif 250<self.satiety<400:
+        elif 250<=sat<=400:
             s='Я не голоден'  
-        elif 100<self.satiety<250:
+        elif 100<=sat<=250:
             s='Я голоден'
-        elif self.satiety<100:
+        elif sat<=100:
             s='Я при голодной смерти'
         return s
 
+    @property
     def health_status(self):
-        if self.health>400:
+        heal=self.health
+        if heal>=400:
             h='Я здоров как бык'
-        elif 250<self.health<400:
+        elif 250<=heal<400:
             h='Я здоров'  
-        elif 100<self.health<250:
+        elif 100<=heal<=250:
             h='Я чувствую себя не очень хорошо'
-        elif self.health<100:
+        elif heal<=100:
             h='Я присмерти от болезни'
         return h  
 
+    @property
     def happiness_status(self):
-        if self.happiness>400:
+        hap=self.happiness
+        if hap>=400:
             ha='Я считаю, что жизнь прекрасна'
-        elif 250<self.happiness<400:
-            ha='Я чувтсвую себя счастливым'  
-        elif 100<self.happiness<250:
+        elif 250<=hap<=400:
+            ha='Я чувствую себя счастливым'  
+        elif 100<=hap<=250:
             ha='Я чувствую себя грустным'
-        elif self.happiness<100:
+        elif hap<=100:
             ha='Я готов покончить жизнь самоубийством'
         return ha              
 
     def status(self):
-        print('Мое имя -', self.name, 'и я сыт на', self.satiety, 'единиц, и счастлив на', self.happiness, 'единиц, и мое здоровье соствляет', self.health, 'eдиниц, у меня в наличии', self.money, 'гривен. '
-        'Лет осталось до смерти: ', self.days_for_death//360)
-        self.pass_day()
+        print('Меня зовут ', self.name, ',', self.satiety_status, ',', self.happiness_status, ",", self.health_status, ', у меня в наличии ', self.money, 'гривнен. Мне', self.total_days//360, 'лет. Моя зп', self.sallary, '.',
+              'Дней прожито', self.days_in_game, end='.')
 
     def have_fun(self):
          print \
@@ -475,7 +483,7 @@ class Life:
             
              elif choice==1:
                 count=int(input("Сколько сеансов вы хотите совершить: "))
-                if self.money>50*count:
+                if self.money>=50*count:
                     for i in range(count):
                         self.happiness+=10*count
                         self.health-=5*count
@@ -486,7 +494,7 @@ class Life:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -494,7 +502,7 @@ class Life:
 
              elif choice==2:
                 count=int(input("Сколько сеансов вы хотите совершить: "))
-                if self.money>125*count:
+                if self.money>=125*count:
                     for i in range(count):
                         self.happiness+=25*count
                         self.health+=5*count
@@ -505,7 +513,7 @@ class Life:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -513,7 +521,7 @@ class Life:
 
              elif choice==3:
                 count=int(input("Сколько сеансов вы хотите совершить: "))
-                if self.money>200*count:
+                if self.money>=200*count:
                     for i in range(count):
                         self.happiness+=45*count
                         self.money-=200*count
@@ -523,7 +531,7 @@ class Life:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -531,7 +539,7 @@ class Life:
 
              elif choice==4:
                 count=int(input("Сколько сеансов вы хотите совершить: "))
-                if self.money>500*count:
+                if self.money>=500*count:
                     for i in range(count):
                         self.happiness+=90*count
                         self.health-=5*count
@@ -542,7 +550,7 @@ class Life:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -550,7 +558,7 @@ class Life:
 
              elif choice==5:
                 count=int(input("Сколько сеансов вы хотите совершить: "))
-                if self.money>1500*count:
+                if self.money>=1500*count:
                     for i in range(count):
                         self.happiness+=135*count
                         self.health+=5*count
@@ -561,7 +569,7 @@ class Life:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -569,7 +577,7 @@ class Life:
 
              elif choice==6:
                 count=int(input("Сколько сеансов вы хотите совершить: "))
-                if self.money>10000*count:
+                if self.money>=10000*count:
                     for i in range(count):
                         self.happiness+=250*count
                         self.health-=30*count
@@ -580,7 +588,7 @@ class Life:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -588,7 +596,7 @@ class Life:
 
              elif choice==7:
                 count=int(input("Сколько сеансов вы хотите совершить: "))
-                if self.money>100000*count:
+                if self.money>=100000*count:
                     for i in range(count):
                         self.happiness+=500*count
                         self.health+=50*count
@@ -599,7 +607,7 @@ class Life:
                             self.health=500
                         if self.satiety>500:
                             self.satiety=500
-                    self.pass_day()
+                        self.pass_day()
                     break
                 else:
                     print('У вас недостаточно денег')
@@ -638,12 +646,12 @@ class Life:
                             self.health=500
                      if self.satiety>500:
                             self.satiety=500
-                 self.pass_day()
+                     self.pass_day()
                  break
 
              elif choice==2:
                  count=int(input('Введите количество сеансов: '))
-                 if self.money>50*count:
+                 if self.money>=50*count:
                      for i in range(count):
                          self.health+=50*count
                          self.money-=50*count
@@ -662,7 +670,7 @@ class Life:
 
              elif choice==3:
                  count=int(input('Введите количество сеансов: '))
-                 if self.money>150*count:
+                 if self.money>=150*count:
                      for i in range(count):
                          self.health+=70*count
                          self.money-=150*count
@@ -681,7 +689,7 @@ class Life:
 
              elif choice==4:
                  count=int(input('Введите количество сеансов: '))
-                 if self.money>500*count:
+                 if self.money>=500*count:
                      for i in range(count):
                          self.health+=100*count
                          self.money-=500*count
@@ -700,7 +708,7 @@ class Life:
 
              elif choice==5:
                  count=int(input('Введите количество сеансов: '))
-                 if self.money>1500*count:
+                 if self.money>=1500*count:
                      for i in range(count):
                          self.health+=150*count
                          self.money-=1500*count
@@ -719,7 +727,7 @@ class Life:
             
              elif choice==6:
                  count=int(input('Введите количество сеансов: '))
-                 if self.money>5000*count:
+                 if self.money>=5000*count:
                      for i in range(count):
                          self.health+=250*count
                          self.money-=5000*count
@@ -757,7 +765,7 @@ class Life:
          while choice!=0:
 
              if choice==1:
-                 if self.money>50:
+                 if self.money>=50:
                      self.clothes='Порванные футболка и штаны'
                      print('Теперь вашей одеждой является: ', self.clothes)
                      self.money-=50
@@ -768,7 +776,7 @@ class Life:
                      break
 
              elif choice==2:
-                 if self.money>500:
+                 if self.money>=500:
                      self.clothes='Дешевый секонд-хэнд'
                      print('Теперь вашей одеждой является: ', self.clothes)
                      self.money-=500
@@ -779,7 +787,7 @@ class Life:
                      break
 
              elif choice==3:
-                 if self.money>1000:
+                 if self.money>=1000:
                      self.clothes='Свитер и штаны'
                      print('Теперь вашей одеждой является: ', self.clothes)
                      self.money-=1000
@@ -790,7 +798,7 @@ class Life:
                      break
 
              elif choice==4:
-                 if self.money>1500:
+                 if self.money>=1500:
                      self.clothes='Рубашка с брюками'
                      print('Теперь вашей одеждой является: ', self.clothes)
                      self.money-=1500
@@ -801,7 +809,7 @@ class Life:
                      break
                  
              elif choice==5:
-                 if self.money>5000:
+                 if self.money>=5000:
                      self.clothes='Дорогой смокинг'
                      print('Теперь вашей одеждой является: ', self.clothes)
                      self.money-=50
@@ -841,7 +849,7 @@ class Life:
                  choice1=int(input())
                  if choice1==1:
                      if 'Права' in self.education_list:
-                         if self.money>2000:
+                         if self.money>=2000:
                              self.car='Старая машина со свалки'
                              self.money-=2000
                              print('Теперь', self.car, "ваша машина")
@@ -866,7 +874,7 @@ class Life:
                  choice1=int(input())
                  if choice1==1:
                      if 'Права' in self.education_list:
-                         if self.money>5000:
+                         if self.money>=5000:
                              self.car='Дедушкина машина'
                              self.money-=5000
                              print('Теперь', self.car, "ваша машина")
@@ -893,7 +901,7 @@ class Life:
                  """)
                  choice1=int(input())
                  if choice1==1:
-                    if self.money>25000:
+                    if self.money>=25000:
                         self.car='Очень дешевая легковушка'
                         self.money-=25000
                         print('Теперь', self.car, "ваша машина")
@@ -915,7 +923,7 @@ class Life:
                  choice1=int(input())
                  if choice1==1:
                      if 'Права' in self.education_list:
-                         if self.money>50000:
+                         if self.money>=50000:
                              self.car='Более новая машина'
                              self.money-=50000
                              print('Теперь', self.car, "ваша машина")
@@ -940,7 +948,7 @@ class Life:
                  choice1=int(input())
                  if choice1==1:
                      if 'Права' in self.education_list:
-                         if self.money>15000:
+                         if self.money>=15000:
                              self.car='Хорошая машина'
                              self.money-=15000
                              print('Теперь', self.car, "ваша машина")
@@ -965,7 +973,7 @@ class Life:
                  choice1=int(input())
                  if choice1==1:
                      if 'Права' in self.education_list:
-                         if self.money>500000:
+                         if self.money>=500000:
                              self.car='Дорогая марка'
                              self.money-=500000
                              print('Теперь', self.car, "ваша машина")
@@ -990,7 +998,7 @@ class Life:
                  choice1=int(input())
                  if choice1==1:
                      if 'Права' in self.education_list:
-                         if self.money>4000000:
+                         if self.money>=4000000:
                              self.car='Грёбанный вертолёт'
                              self.money-=4000000
                              print('Теперь у вас есть грёбанный вертолет')
@@ -1024,7 +1032,7 @@ class Life:
          choice=int(input())
          while choice!=0:
              if choice==1:
-                 if self.money>5000:
+                 if self.money>=5000:
                      self.total_days+=810
                      self.money-=5000
                      self.education_list.append('Среднее образование')
@@ -1037,7 +1045,7 @@ class Life:
              
              elif choice==2:
                  if 'Среднее образование' in self.education_list:
-                     if self.money>2000:
+                     if self.money>=2000:
                          self.total_days+=810
                          self.money-=2000
                          self.education_list.append('Высшее образование')
@@ -1053,7 +1061,7 @@ class Life:
             
              elif choice==3:
                  if 'Среднее образование' in self.education_list:
-                     if self.money>10000:
+                     if self.money>=10000:
                          self.total_days+=1080
                          self.money-=10000
                          self.education_list.append('Техникум')
@@ -1069,7 +1077,7 @@ class Life:
              
              elif choice==4:
                  if 'Высшее образование' in self.education_list:
-                     if self.money>20000:
+                     if self.money>=20000:
                          self.total_days+=1800
                          self.money-=20000
                          self.education_list.append('Медицинский')
@@ -1085,7 +1093,7 @@ class Life:
              
              elif choice==5:
                  if 'Высшее образование' in self.education_list:
-                     if self.money>35000:
+                     if self.money>=35000:
                          self.total_days+=810
                          self.money-=35000
                          self.education_list.append('Экономический')
@@ -1101,7 +1109,7 @@ class Life:
                 
              elif choice==6:
                  if 'Высшее образование' in self.education_list:
-                     if self.money>50000:
+                     if self.money>=50000:
                          self.total_days+=810
                          self.money-=50000
                          self.education_list.append('Юридический')
@@ -1116,7 +1124,7 @@ class Life:
                      break
                 
              elif choice==7:
-                 if self.money>1500:
+                 if self.money>=1500:
                      self.total_days+=30
                      self.money-=30
                      self.education_list.append('Права на грёбанный вертолёт')
@@ -1317,7 +1325,7 @@ class Life:
                         if self.car=='Грёбанный вертолёт':
                             if self.apartments=='Пентхаус':
                                 if self.job_days>1800:
-                                    if self.money>1000000:
+                                    if self.money>=1000000:
                                         self.money-=1000000
                                         d=random.randint(1,4)
                                         if d==1:
